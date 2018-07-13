@@ -2,16 +2,19 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\web\UrlManager;
+
 // $pub = Yii::$app->assetManager->publish(__DIR__ . '\js\create.js');
 // $this->registerJsFile($pub[1], ['depends' => ['yii\web\JqueryAsset']]);
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\CountrySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-echo Yii::$app->getUrlManager()->parseUrl();
 
 $this->title = 'Countries';
 $this->params['breadcrumbs'][] = $this->title;
+$create_route =  Yii::$app->urlManager->createUrl('/country/create');
+$token = Yii::$app->request->getCsrfToken();
+echo "<input type='hidden' id='create-route' value='".$create_route."'>";
+echo "<input type='hidden' id='token' value='".$token."'>";
 ?>
 <div class="country-index">
 

@@ -5,17 +5,16 @@ $(document).ready(function(){
 
     $('#save').click(function(){
         var obj={
+            _csrf : $('#token').val(),
             'name' : $('#name').val(),
             'code' : $('#code').val(),
             'description' : $('#des').val()
         };
 
-        console.log(obj);
-
+      
         $.ajax({
-            url: "<?= Yii::$app->request->baseUrl ?>/create",
+            url: $('#create-route').val(),
             type : 'post',
-            dataType:'json',
             data : obj,
             success: function(data) { 
                 console.log(data); 

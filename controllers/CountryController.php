@@ -65,14 +65,17 @@ class CountryController extends Controller
     public function actionCreate()
     {
         $model = new Country();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        
+        if (Yii::$app->request->isAjax) {
+            $data = Yii::$app->request->post();
+            $model->save($data);
         }
+    
+        // if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        //     return json_encode(['id' => $model->id]);
+        // }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+        // return json_encode(['name'=>'jonh']);
     }
 
     /**
