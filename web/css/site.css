@@ -114,7 +114,13 @@ a.desc:after {
     outline: none;
 }
 
-#country-modal{
-    width: 50%;
-    margin-left: 25%;
+.modal{
+    width: 30%;
+    margin-left: 35%;
+}
+.modal-header{
+    width: 68%;
+}
+.form-control{
+    width:65%;
 }
