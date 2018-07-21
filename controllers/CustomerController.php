@@ -51,10 +51,10 @@ class CustomerController extends Controller
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
-    { 
+    {   
         $model = Customers::findOne($id) ;
         if($model!=null){
-            return json_encode(['result'=>true,'data'=>$model]);
+            return json_encode(['result'=>true,'data'=>$model->attributes]);
         }else{
             return json_encode(['result'=>false,'data'=>'The requested page does not exist.']);
         }
@@ -72,7 +72,7 @@ class CustomerController extends Controller
         $model->setAttributes(Yii::$app->request->post(), false);
         if($model->validate() && $model->save())
         { 
-            return json_encode(['result'=>true,'data'=>Yii::$app->request->post(),'id'=>$model->id]);
+            return json_encode(['result'=>true,'data'=>Yii::$app->request->post(),'id'=>$model->id,'method'=>'create']);
         }else{
             return json_encode(['result'=>false,'errors'=>$model->errors]);
         }
@@ -88,14 +88,14 @@ class CustomerController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $model->setAttributes(Yii::$app->request->post(), false);
+        if ($model->validate() && $model->save()) {
+            return json_encode(['result'=>true,'data'=>$model->attributes,'method'=>'update']);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        }else{
+            return json_encode(['result'=>false,'errors'=>$model->errors]);
         }
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -107,9 +107,11 @@ class CustomerController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+        if( $this->findModel($id)->delete() ) {
+            return json_encode(['result'=>true]);
+        }else{
+            return json_encode(['result'=>false]);
+        }
     }
 
     /**

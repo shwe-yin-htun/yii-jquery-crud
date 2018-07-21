@@ -7,10 +7,12 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 $create_route =  Yii::$app->urlManager->createUrl('/customer/create');
 $view_route =  Yii::$app->urlManager->createUrl('/customer/view');
+$update_route =  Yii::$app->urlManager->createUrl('/customer/update');
 $delete_route =  Yii::$app->urlManager->createUrl('/customer/delete');
 $token = Yii::$app->request->getCsrfToken();
 echo "<input type='hidden' id='create-route' value='".$create_route."'>";
 echo "<input type='hidden' id='view-route' value='".$view_route."'>";
+echo "<input type='hidden' id='update-route' value='".$update_route."'>";
 echo "<input type='hidden' id='delete-route' value='".$delete_route."'>";
 
 echo "<input type='hidden' id='token' value='".$token."'>";
@@ -87,7 +89,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <input type="password" class="form-control" id="password" placeholder="Password">
                         <span style="color:red" id="pwd_err"></span>
                     </div>
-                    <button class="btn btn-primary" id="save" >
+                    <button class="btn btn-primary" id="save" data-id="">
                        <i class="fa fa-floppy-o" aria-hidden="true"></i> Save
                     </button>
                 </div>
