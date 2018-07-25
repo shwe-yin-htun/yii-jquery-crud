@@ -33,6 +33,18 @@ $config = [
             // for the mailer to send real emails.
             'useFileTransport' => true,
         ],
+        'urlManager'=>[
+            'enablePrettyUrl'=>true,
+            'showScriptName'=>false,
+            'rules' => [
+                [
+                  'pattern' => 'customer/view/<id:\d+>',
+                  'route' => 'customer/view'
+                ],
+                'customer/delete/<id:\d+>'=> 'customer/delete'
+               
+            ]
+        ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [

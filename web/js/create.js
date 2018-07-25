@@ -68,7 +68,7 @@ $(document).ready(function(){
              $('#save').attr('data-id',id);
              $.ajax({
                   type : 'get',
-                  url :  $('#view-route').val()+'&id='+id,
+                  url :  $('#view-route').val()+'/'+id,
                   dataType : 'json',
                   success : function(response){
                        if(response.result){
@@ -93,7 +93,7 @@ $(document).ready(function(){
                if(confirm('Are you sure to delete ?')){
                     $.ajax({
                         type : 'post',
-                        url :  $('#delete-route').val()+'&id='+$(this).attr('data-id'),
+                        url :  $('#delete-route').val()+'/'+$(this).attr('data-id'),
                         dataType : 'json',
                         success : function(response){
                             if(response.result){
