@@ -24,12 +24,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::button('Create Customers', ['class' => 'btn btn-success','id'=>'create-customer']) ?>
-    </p>
+    <div class="row">
+        <?= Html::button('Create Customers', ['class' => 'btn btn-success pull-right','id'=>'create-customer']) ?>
+    </div> <br/>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
@@ -60,7 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
                       ]);
                   }
                 ],
-            ], 
+            ],  
         ]   
     ]); ?>
 </div>
