@@ -8,7 +8,7 @@ use app\models\SearchCustomer;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\data\ActiveDataProvider;
 /**
  * CustomerController implements the CRUD actions for Customers model.
  */
@@ -35,13 +35,36 @@ class CustomerController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new SearchCustomer();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $query = Customers::find();
+        $searchModel= new SearchCustomer();
+        $searchModel->load( Yii::$app->request->get() );
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+        if( $searchModel->username !=''){
+            $query->andFilterWhere(
+                [ 'LIKE','username' , $searchModel->username ] 
+            );
+        }
+        if( $searchModel->email !=''){
+            $query->andFilterWhere(
+                [ 'LIKE', 'email' , $searchModel->email ]
+            );
+        }
+        if( $searchModel->password !=''){
+            $query->andFilterWhere(
+                [ 'LIKE', 'password' , $searchModel->password ]
+            );
+        }
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                 'pageSize' => 7,
+            ],
         ]);
+        return $this->render('index', [ 
+                               'dataProvider' => $dataProvider ,
+                               'searchModel' => $searchModel ,
+                           ]);
     }
 
     /**

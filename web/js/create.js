@@ -25,7 +25,11 @@ $(document).ready(function(){
                 if(response.result){
                     $('#customer-modal').modal('hide');
                     if(response.method=='create'){   // for adding new customer
-                        var count= $('.grid-view table > tbody > tr').length ;
+                        if($( "ul.pagination li:nth-last-child(2)" ).find('a').attr('href')!=undefined){{
+                            window.location.href = $( "ul.pagination li:nth-last-child(2)" ).find('a').attr('href');  // go to the last page
+                        }}
+                        
+                        var count= $('.grid-view table > tbody > tr').last().find('td:eq(0)').text() ;
                             count= parseInt(count) + 1;
                         var tr ="<tr data-key='"+response.id+"'><td>"+count+"</td>"+
                                 "<td>"+response.data.username+"</td>"+
@@ -98,6 +102,7 @@ $(document).ready(function(){
                         success : function(response){
                             if(response.result){
                                 tr.closest('tr').remove();
+                                location.reload();
                             }else{
                                 alert('Something went wrong !');
                             }
