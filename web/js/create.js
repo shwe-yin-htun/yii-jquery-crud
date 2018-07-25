@@ -9,7 +9,7 @@ $(document).ready(function(){
 
     $('#save').click(function(){
         var id = $(this).attr('data-id');
-        var url = (id =='' || id==null) ?  $('#create-route').val() : $('#update-route').val()+'&id='+id;
+        var url = (id =='' || id==null) ?  $('#create-route').val() : $('#update-route').val()+'/'+id;
         var obj={
             'username' : $('#username').val(),
             'email' : $('#email').val(),

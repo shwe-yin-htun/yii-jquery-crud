@@ -41,6 +41,7 @@ $config = [
                   'pattern' => 'customer/view/<id:\d+>',
                   'route' => 'customer/view'
                 ],
+                'customer/update/<id:\d+>'=> 'customer/update',
                 'customer/delete/<id:\d+>'=> 'customer/delete'
                
             ]
